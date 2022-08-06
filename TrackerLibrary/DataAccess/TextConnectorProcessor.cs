@@ -15,7 +15,7 @@ using TrackerLibrary.Models;
 
 namespace TrackerLibrary.DataAccess.TextHelpers
 {
-    public static class TextCOnnectorProcessor
+    public static class TextConnectorProcessor
     {
         public static string FullFilePath(this string fileName)
         {
