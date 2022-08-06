@@ -8,14 +8,34 @@ using TrackerLibrary.DataAccess.TextHelpers;
 
 namespace TrackerLibrary.DataAccess
 {
-	  public class TextConnector : IDataConnection
-	  {
+    public class TextConnector : IDataConnection
+    {
         private const string PrizesFile = "PrizeModels.csv";
+        private const string PeopleFile = "PersonModels.csv";
+        public PersonModel CreatePerson(PersonModel model)
+        {
+            List<PersonModel> people = PeopleFile.FullFilePath().LoadFile().ConvertToPersonModels();
 
-		    // TODO - Make the CreatePrize save to a text file
-		    public PrizeModel CreatePrize(PrizeModel model)
-		    {
-			      // Load the text file and convert the text to List<PrizeModel>
+            int currentId = 1;
+
+            if (people.Count > 0)
+            {
+                currentId = people.OrderByDescending(x => x.Id).First().Id + 1;
+            }
+
+            model.Id = currentId;
+
+            people.Add(model);
+
+            people.SaveToPeopleFile(PeopleFile);
+
+            return model;
+        }
+
+        // TODO - Make the CreatePrize save to a text file
+        public PrizeModel CreatePrize(PrizeModel model)
+        {
+            // Load the text file and convert the text to List<PrizeModel>
             List<PrizeModel> prizes = PrizesFile.FullFilePath().LoadFile().ConvertToPrizeModels();
 
             // Find the max ID
@@ -36,6 +56,6 @@ namespace TrackerLibrary.DataAccess
             prizes.SaveToPrizeFile(PrizesFile);
 
             return model;
-		    }
+        }
     }
 }

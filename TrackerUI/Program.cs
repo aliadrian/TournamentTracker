@@ -4,20 +4,20 @@ namespace TrackerUI
 {
     static class Program
     {
-	    /// <summary>
-	    ///  The main entry point for the application.
-	    /// </summary>
-	    [STAThread]
-	    static void Main()
-	    {
-		    ApplicationConfiguration.Initialize();
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            ApplicationConfiguration.Initialize();
 
-		    // Initialize the database connections
-		    TrackerLibrary.GlobalConfig.InitializeConnections(DatabaseType.TextFile);
+            // Initialize the database connections
+            TrackerLibrary.GlobalConfig.InitializeConnections(DatabaseType.TextFile);
 
-		    Application.Run(new CreatePrizeForm());
+            Application.Run(new CreateTeamForm());
 
-		    //Application.Run(new TournamentDashboardForm());
-	    }
+            //Application.Run(new TournamentDashboardForm());
+        }
     }
 }
