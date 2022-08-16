@@ -124,6 +124,7 @@
 			this.createNewTeanLink.TabIndex = 15;
 			this.createNewTeanLink.TabStop = true;
 			this.createNewTeanLink.Text = "create new";
+			this.createNewTeanLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.createNewTeanLink_LinkClicked);
 			// 
 			// addTeamButton
 			// 
@@ -155,6 +156,7 @@
 			this.createPrizeButton.TabIndex = 17;
 			this.createPrizeButton.Text = "Create Prize";
 			this.createPrizeButton.UseVisualStyleBackColor = true;
+			this.createPrizeButton.Click += new System.EventHandler(this.createPrizeButton_Click);
 			// 
 			// tournamentTeamsListBox
 			// 
@@ -212,6 +214,7 @@
 			this.removeSelectedPlayersButton.TabIndex = 22;
 			this.removeSelectedPlayersButton.Text = "Remove Selected";
 			this.removeSelectedPlayersButton.UseVisualStyleBackColor = true;
+			this.removeSelectedPlayersButton.Click += new System.EventHandler(this.removeSelectedPlayersButton_Click);
 			// 
 			// removeSelectedPrizeButton
 			// 
@@ -227,6 +230,7 @@
 			this.removeSelectedPrizeButton.TabIndex = 24;
 			this.removeSelectedPrizeButton.Text = "Remove Selected";
 			this.removeSelectedPrizeButton.UseVisualStyleBackColor = true;
+			this.removeSelectedPrizeButton.Click += new System.EventHandler(this.removeSelectedPrizeButton_Click);
 			// 
 			// createTournamentButton
 			// 
@@ -242,6 +246,7 @@
 			this.createTournamentButton.TabIndex = 27;
 			this.createTournamentButton.Text = "Create Tournament";
 			this.createTournamentButton.UseVisualStyleBackColor = true;
+			this.createTournamentButton.Click += new System.EventHandler(this.createTournamentButton_Click);
 			// 
 			// CreateTournamentForm
 			// 

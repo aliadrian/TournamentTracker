@@ -13,85 +13,93 @@ using TrackerLibrary.Models;
 
 namespace TrackerUI
 {
-	public partial class CreatePrizeForm : Form
-	{
-		public CreatePrizeForm()
-		{
-			InitializeComponent();
-		}
+    public partial class CreatePrizeForm : Form
+    {
+        IPrizeRequester callingForm;
+        public CreatePrizeForm(IPrizeRequester caller)
+        {
+            InitializeComponent();
 
-		private void placeNumberLabel_Click(object sender, EventArgs e)
-		{
+            callingForm = caller;
+        }
 
-		}
+        private void placeNumberLabel_Click(object sender, EventArgs e)
+        {
 
-		private void createPrizeButton_Click(object sender, EventArgs e)
-		{
-			if (ValidateForm()) {
-				PrizeModel model = new PrizeModel(
-					placeNumberValue.Text, 
-					placeNameValue.Text, 
-					prizeAmountValue.Text, 
-					prizePercentageValue.Text
-					);
+        }
 
-				GlobalConfig.Connection.CreatePrize(model);
+        private void createPrizeButton_Click(object sender, EventArgs e)
+        {
+            if (ValidateForm())
+            {
+                PrizeModel model = new PrizeModel(
+                    placeNumberValue.Text,
+                    placeNameValue.Text,
+                    prizeAmountValue.Text,
+                    prizePercentageValue.Text
+                    );
 
-				placeNameValue.Text = ""; 
-				placeNumberValue.Text = ""; 
-				prizeAmountValue.Text = "0";
-				prizePercentageValue.Text = "0";
+                GlobalConfig.Connection.CreatePrize(model);
 
-			}
-			else
-			{
-				MessageBox.Show("Please fill the form.");
-			}
-		}
+                callingForm.PrizeComplete(model);
 
-		private bool ValidateForm()
-		{
-			bool output = true;
-			int placeNumber = 0;
-			bool placeNumberValidNumber = int.TryParse(placeNumberValue.Text, out placeNumber);
+                this.Close();
 
-			if (placeNumberValidNumber == false)
-			{
-				output = false;
-			}
+                //placeNameValue.Text = "";
+                //placeNumberValue.Text = "";
+                //prizeAmountValue.Text = "0";
+                //prizePercentageValue.Text = "0";
 
-			if (placeNumber < 1)
-			{
-				output = false;
-			}
+            }
+            else
+            {
+                MessageBox.Show("Please fill the form.");
+            }
+        }
 
-			if (placeNameValue.Text.Length == 0)
-			{
-				output = false;
-			}
+        private bool ValidateForm()
+        {
+            bool output = true;
+            int placeNumber = 0;
+            bool placeNumberValidNumber = int.TryParse(placeNumberValue.Text, out placeNumber);
 
-			decimal prizeAmount = 0;
-			double prizePercentage = 0;
+            if (placeNumberValidNumber == false)
+            {
+                output = false;
+            }
 
-			bool prizeAmountValid = decimal.TryParse(prizeAmountValue.Text, out prizeAmount);
-			bool prizePercentageValid = double.TryParse(prizePercentageValue.Text, out prizePercentage);
+            if (placeNumber < 1)
+            {
+                output = false;
+            }
 
-			if (prizeAmountValid == false || prizePercentageValid == false)
-			{
-				output = false;
-			}
+            if (placeNameValue.Text.Length == 0)
+            {
+                output = false;
+            }
 
-			if (prizeAmount <= 0 && prizePercentage <= 0)
-			{
-				output = false;
-			}
+            decimal prizeAmount = 0;
+            double prizePercentage = 0;
 
-			if (prizePercentage < 0 || prizePercentage > 100)
-			{
-				output = false;
-			}
+            bool prizeAmountValid = decimal.TryParse(prizeAmountValue.Text, out prizeAmount);
+            bool prizePercentageValid = double.TryParse(prizePercentageValue.Text, out prizePercentage);
 
-			return output;
-		}
-	}
+            if (prizeAmountValid == false || prizePercentageValid == false)
+            {
+                output = false;
+            }
+
+            if (prizeAmount <= 0 && prizePercentage <= 0)
+            {
+                output = false;
+            }
+
+            if (prizePercentage < 0 || prizePercentage > 100)
+            {
+                output = false;
+            }
+
+            return output;
+        }
+    }
 }
